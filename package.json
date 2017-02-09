@@ -8,7 +8,7 @@
     "posttest": "eslint index.js test.js lib/**",
     "prepublish": "npm run test",
     "version": "chan release ${npm_package_version} && git add .",
-    "dev": "budo index.js",
+    "dev": "budo example/index.js --live --host=localhost --port=3000",
     "build": "rimraf dist && mkdir dist && npm run build:dev && npm run build:production",
     "build:dev": "browserify index.js --standalone=mundaka -o dist/mundaka.js",
     "build:production": "browserify index.js --standalone=mundaka -p bundle-collapser/plugin | uglifyjs -o dist/mundaka.min.js"
@@ -47,6 +47,10 @@
   },
   "eslintConfig": {
     "extends": "xo/esnext",
+    "env": {
+      "browser": true,
+      "node": true
+    },
     "rules": {
       "indent": [
         "error",
