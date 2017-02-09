@@ -1,0 +1,9 @@
+{
+  "name": "example",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "inferno": "^1.3.0-rc.3",
+    "inferno-hyperscript": "^1.3.0-rc.3"
+  }
+}
