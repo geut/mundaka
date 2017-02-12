@@ -21,7 +21,7 @@ module.exports = function (state) {
     const list$ = state.books.list$;
     const filter$ = state.books.filter$;
 
-    const view$ = flyd
+    return flyd
         .combine((list, filter) => {
             return {
                 list: list(),
@@ -33,17 +33,13 @@ module.exports = function (state) {
                 return h('p', 'not found');
             }
 
-            return h('ul', books
-                .list
-                .filter(book => filter(book, books.filter))
-                .map(li)
-            );
+            return h('#books', [
+                h('h2', 'Books'),
+                h('ul', books
+                    .list
+                    .filter(book => filter(book, books.filter))
+                    .map(li)
+                )
+            ]);
         });
-
-    return function () {
-        return h('#books', [
-            h('h2', 'Books'),
-            view$()
-        ]);
-    };
-};
+}

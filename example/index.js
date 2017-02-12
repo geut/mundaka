@@ -1,7 +1,8 @@
 const renderer = require('inferno').createRenderer();
-const h = require('inferno-hyperscript');
-const mundaka = require('../index');
 const flyd = require('flyd');
+const h = require('inferno-hyperscript');
+const cache = require('./cache');
+const mundaka = require('../index');
 
 const mun = mundaka({
     state: require('./state')
@@ -10,13 +11,13 @@ const mun = mundaka({
 window.mun = mun;
 
 function view() {
-    const books$ = require('./components/books')(mun.state);
-    const count$ = mun.state.count$.map(count => h('h1', count));
+    const books$ = cache(require('./components/books')(mun.state));
+    const count$ = cache(mun.state.count$.map(count => h('h1', count)));
 
     return () => {
         return h('div', [
-            count$(),
-            books$()
+            h(count$),
+            h(books$)
         ]);
     };
 }
